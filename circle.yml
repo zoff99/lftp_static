@@ -31,7 +31,7 @@ compile:
   - cd lftp;cd src; cat bb.txt
   - cd lftp;cd src; sed -i -e 'sx-fPIC -fPIE x --static -static x' bb.txt
   - cd lftp;cd src; cat bb.txt
-  - cd lftp;cd src; sed -i -e 'sx\-Wl\,\-\-export\-dynamicx x' bb.txt
+  - cd lftp;cd src; sed -i -e 'sb\-Wl\,\-\-export\-dynamicb b' bb.txt
   - cd lftp;cd src; cat bb.txt
   - cd lftp;cd src; bash bb.txt
   - cd lftp;cd src; ./lftp --version
