@@ -6,9 +6,7 @@ dependencies:
   - sudo apt-get install bison libsocks4 libsocksd0-dev libssl-dev libreadline6-dev libncurses-dev
   
   - git clone https://github.com/lavv17/lftp.git
-  - mv -v lftp/* .
-  - mv -v lftp/.??* . ; exit 0
-
+  - ls -al; ls -al lftp/
   - cd lftp;git checkout 10319416ce7637fadcb9a3eb96f53525038a3538
   - cd lftp;./bootstrap
   - cd lftp;mkdir -p /tmp/xyz/
