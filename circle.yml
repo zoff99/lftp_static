@@ -35,11 +35,11 @@ compile:
   - cd lftp;cd src; cat bb.txt
   - cd lftp;cd src; bash bb.txt
   - cd lftp;cd src; ./lftp --version
-  - cd lftp;cd src; ldd lftp
+  - cd lftp;cd src; ldd lftp ; exit 0
   - cd lftp;cd src; file lftp
 
 test:
   override:
-  - echo dummy
+  - cp -av lftp/src/lftp $CIRCLE_ARTIFACTS/lftp_linux64_static
 
 
