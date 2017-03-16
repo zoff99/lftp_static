@@ -25,10 +25,14 @@ compile:
   - cd lftp;cd src; make 2>&1 > aa.txt
   - cd lftp;cd src; rm lftp
   - cd lftp;cd src; sed -i -e 's#--silent##' aa.txt
+  - cd lftp;cd src; cat aa.txt
   - cd lftp;cd src; bash aa.txt 2>&1 > aa2.txt
   - cd lftp;cd src; cat aa2.txt |sed -e 'sx^.*-fPIC -fPIE xg++ -fPIC -fPIE x' > bb.txt
+  - cd lftp;cd src; cat bb.txt
   - cd lftp;cd src; sed -i -e 'sx-fPIC -fPIE x --static -static x' bb.txt
-  - cd lftp;cd src; sed -i -e 'sx-Wl,--export-dynamicx x' bb.txt
+  - cd lftp;cd src; cat bb.txt
+  - cd lftp;cd src; sed -i -e 'sx\-Wl\,\-\-export\-dynamicx x' bb.txt
+  - cd lftp;cd src; cat bb.txt
   - cd lftp;cd src; bash bb.txt
   - cd lftp;cd src; ./lftp --version
   - cd lftp;cd src; ldd lftp
