@@ -1,0 +1,33 @@
+dependencies:
+  pre:
+  - sudo apt-get update
+  - sudo apt-get install build-essential libtool autotools-dev automake checkinstall check git yasm
+  - sudo apt-get install libncurses5-dev libreadline-dev openssl libexpat1-dev zlib1g-dev build-essential automake autoconf autopoint gperf
+  - sudo apt-get install yacc bison libsocks4 libsocksd0-dev libssl-dev libreadline6-dev libncurses-dev
+  
+  - git clone https://github.com/lavv17/lftp.git
+  - mv -v lftp/* .
+  - mv -v lftp/.??* . ; exit 0
+
+  - git checkout 10319416ce7637fadcb9a3eb96f53525038a3538
+  - ./bootstrap
+  - export CFLAGS=" -fPIC -fPIE -I/usr/include/readline "
+  - export CXXFLAGS=" -fPIC -fPIE -I/usr/include/readline "
+  - export LDFLAGS=" -static "
+  - mkdir -p /tmp/xyz/
+
+compile:
+  override:
+  - ./configure --without-gnutls --with-pic --disable-shared --enable-static --prefix=/tmp/xyz/ --without-expat --with-openssl=/usr/lib --without-socks
+  - make ; exit 0
+  - touch lib/unused-parameter.h
+  - make
+  - cd src; ls -al lftp
+  - cd src; ldd lftp
+  - cd src; file lftp
+
+test:
+  override:
+  - echo dummy
+
+
