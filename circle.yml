@@ -9,22 +9,20 @@ dependencies:
   - mv -v lftp/* .
   - mv -v lftp/.??* . ; exit 0
 
-  - git checkout 10319416ce7637fadcb9a3eb96f53525038a3538
-  - ./bootstrap
-  - export CFLAGS=" -fPIC -fPIE -I/usr/include/readline "
-  - export CXXFLAGS=" -fPIC -fPIE -I/usr/include/readline "
-  - export LDFLAGS=" -static "
-  - mkdir -p /tmp/xyz/
+  - cd lftp;git checkout 10319416ce7637fadcb9a3eb96f53525038a3538
+  - cd lftp;./bootstrap
+  - cd lftp;mkdir -p /tmp/xyz/
 
 compile:
   override:
-  - ./configure --without-gnutls --with-pic --disable-shared --enable-static --prefix=/tmp/xyz/ --without-expat --with-openssl=/usr/lib --without-socks
-  - make ; exit 0
-  - touch lib/unused-parameter.h
-  - make
-  - cd src; ls -al lftp
-  - cd src; ldd lftp
-  - cd src; file lftp
+  - cd lftp;sed -i -e 's#readline_lib_flags="-lreadline"#readline_lib_flags=" -lreadline -ltermcap "#' configure
+  - cd lftp;export CFLAGS=" -fPIC -fPIE -I/usr/include/readline ";export CXXFLAGS=" -fPIC -fPIE -I/usr/include/readline ";export LDFLAGS=" -static ";./configure --without-gnutls --with-pic --disable-shared --enable-static --prefix=/tmp/xyz/ --without-expat --with-openssl=/usr/lib --without-socks
+  - cd lftp;export CFLAGS=" -fPIC -fPIE -I/usr/include/readline ";export CXXFLAGS=" -fPIC -fPIE -I/usr/include/readline ";export LDFLAGS=" -static ";make ; exit 0
+  - cd lftp;touch lib/unused-parameter.h
+  - cd lftp;export CFLAGS=" -fPIC -fPIE -I/usr/include/readline ";export CXXFLAGS=" -fPIC -fPIE -I/usr/include/readline ";export LDFLAGS=" -static ";make
+  - cd lftp;cd src; ls -al lftp
+  - cd lftp;cd src; ldd lftp
+  - cd lftp;cd src; file lftp
 
 test:
   override:
